@@ -27,13 +27,20 @@ export const dashboardService = {
   async getSummary(user: NonNullable<Express.Request["user"]>) {
     const taskWhere = getTaskScope(user);
     const sevenDaysFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const statuses = Object.values(TaskStatus);
 
     const [counts, upcomingTasks, recentTasks] = await Promise.all([
-      prisma.task.groupBy({
-        by: ["status"],
-        _count: { status: true },
-        where: taskWhere,
-      }),
+      Promise.all(
+        statuses.map(async (status) => ({
+          status,
+          count: await prisma.task.count({
+            where: {
+              ...taskWhere,
+              status,
+            },
+          }),
+        })),
+      ),
       prisma.task.findMany({
         where: {
           ...taskWhere,
@@ -64,14 +71,10 @@ export const dashboardService = {
       }),
     ]);
 
-    const countMap = Object.values(TaskStatus).reduce<Record<string, number>>((accumulator, status) => {
-      accumulator[status] = 0;
+    const countMap = counts.reduce<Record<string, number>>((accumulator, entry) => {
+      accumulator[entry.status] = entry.count;
       return accumulator;
     }, {});
-
-    counts.forEach((entry) => {
-      countMap[entry.status] = entry._count.status;
-    });
 
     return {
       taskCounts: countMap,
