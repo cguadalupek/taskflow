@@ -25,13 +25,7 @@ function getProjectVisibilityScope(user: NonNullable<Express.Request["user"]>) {
     return { ownerId: user.id };
   }
 
-  return {
-    tasks: {
-      some: {
-        assignedToId: user.id,
-      },
-    },
-  };
+  return {};
 }
 
 export const projectService = {
@@ -193,19 +187,12 @@ export const projectService = {
   },
 
   async ensureDeveloperTaskCreationAccess(user: NonNullable<Express.Request["user"]>, projectId: number) {
-    const project = await prisma.project.findFirst({
-      where: {
-        id: projectId,
-        tasks: {
-          some: {
-            assignedToId: user.id,
-          },
-        },
-      },
+    const project = await prisma.project.findUnique({
+      where: { id: projectId },
     });
 
     if (!project) {
-      throw new ApiError(403, "No puedes crear tareas en este proyecto");
+      throw new ApiError(404, "Proyecto no encontrado");
     }
 
     return project;

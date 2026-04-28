@@ -96,7 +96,7 @@ Además se crean:
 
 - `ADMIN`: gestiona usuarios, proyectos y tareas globalmente.
 - `PROJECT_MANAGER`: gestiona solo sus proyectos y tareas asociadas.
-- `DEVELOPER`: ve y edita sus tareas asignadas; puede crear tareas autoasignadas dentro de proyectos donde ya participa.
+- `DEVELOPER`: ve el dashboard de sus tareas, puede crear tareas autoasignadas y editar o cambiar el estado de las tareas que tiene asignadas.
 
 ## Comandos útiles
 
