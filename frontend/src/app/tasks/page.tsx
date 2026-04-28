@@ -90,7 +90,7 @@ export default function TasksPage() {
 
   return (
     <AuthGuard>
-      <PageHeader title="Tasks" description="Crea, filtra y administra tareas según tu rol actual." />
+      <PageHeader title="Tareas" description="Crea, filtra y administra tareas segun tu rol actual." />
       {error ? <div className="alert alert-danger">{error}</div> : null}
       <div className="row g-4 mb-4">
         <div className="col-lg-5">
@@ -98,7 +98,7 @@ export default function TasksPage() {
             role={currentRole}
             projects={projects}
             users={users}
-            submitLabel={selectedTask ? "Update task" : "Create task"}
+            submitLabel={selectedTask ? "Actualizar tarea" : "Crear tarea"}
             initialTask={selectedTask}
             onSubmit={selectedTask ? handleUpdateTask : handleCreateTask}
             editableFields={{
@@ -110,7 +110,7 @@ export default function TasksPage() {
           />
           {selectedTask ? (
             <button className="btn btn-link px-0 mt-2" onClick={() => setSelectedTask(null)}>
-              Cancel editing
+              Cancelar edicion
             </button>
           ) : null}
         </div>
@@ -119,13 +119,13 @@ export default function TasksPage() {
             <div className="card-body">
               <div className="row g-3">
                 <div className="col-md-3">
-                  <label className="form-label">Status</label>
+                  <label className="form-label">Estado</label>
                   <select
                     className="form-select"
                     value={filters.status}
                     onChange={(event) => setFilters((current) => ({ ...current, status: event.target.value }))}
                   >
-                    <option value="">All</option>
+                    <option value="">Todos</option>
                     {taskStatuses.map((status) => (
                       <option key={status} value={status}>
                         {status}
@@ -134,13 +134,13 @@ export default function TasksPage() {
                   </select>
                 </div>
                 <div className="col-md-3">
-                  <label className="form-label">Priority</label>
+                  <label className="form-label">Prioridad</label>
                   <select
                     className="form-select"
                     value={filters.priority}
                     onChange={(event) => setFilters((current) => ({ ...current, priority: event.target.value }))}
                   >
-                    <option value="">All</option>
+                    <option value="">Todas</option>
                     {taskPriorities.map((priority) => (
                       <option key={priority} value={priority}>
                         {priority}
@@ -149,13 +149,13 @@ export default function TasksPage() {
                   </select>
                 </div>
                 <div className="col-md-3">
-                  <label className="form-label">Assignee</label>
+                  <label className="form-label">Asignado a</label>
                   <select
                     className="form-select"
                     value={filters.assignedTo}
                     onChange={(event) => setFilters((current) => ({ ...current, assignedTo: event.target.value }))}
                   >
-                    <option value="">All</option>
+                    <option value="">Todos</option>
                     {users.map((assignableUser) => (
                       <option key={assignableUser.id} value={assignableUser.id}>
                         {assignableUser.name}
@@ -164,13 +164,13 @@ export default function TasksPage() {
                   </select>
                 </div>
                 <div className="col-md-3">
-                  <label className="form-label">Project</label>
+                  <label className="form-label">Proyecto</label>
                   <select
                     className="form-select"
                     value={filters.projectId}
                     onChange={(event) => setFilters((current) => ({ ...current, projectId: event.target.value }))}
                   >
-                    <option value="">All</option>
+                    <option value="">Todos</option>
                     {projects.map((project) => (
                       <option key={project.id} value={project.id}>
                         {project.name}
@@ -192,12 +192,12 @@ export default function TasksPage() {
               <table className="table align-middle mb-0">
                 <thead>
                   <tr>
-                    <th>Task</th>
-                    <th>Project</th>
-                    <th>Assignee</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Due</th>
+                    <th>Tarea</th>
+                    <th>Proyecto</th>
+                    <th>Asignado a</th>
+                    <th>Estado</th>
+                    <th>Prioridad</th>
+                    <th>Vence</th>
                     <th />
                   </tr>
                 </thead>
@@ -221,11 +221,11 @@ export default function TasksPage() {
                         <td className="text-end">
                           <div className="d-flex justify-content-end gap-2 flex-wrap">
                             <button className="btn btn-sm btn-outline-secondary" onClick={() => setSelectedTask(task)}>
-                              Edit
+                              Editar
                             </button>
                             {currentRole !== "DEVELOPER" ? (
                               <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteTask(task.id)}>
-                                Delete
+                                Eliminar
                               </button>
                             ) : null}
                           </div>
@@ -235,7 +235,7 @@ export default function TasksPage() {
                   ) : (
                     <tr>
                       <td colSpan={7} className="text-center py-4 text-secondary">
-                        No tasks found for the current filters.
+                        No se encontraron tareas con los filtros actuales.
                       </td>
                     </tr>
                   )}

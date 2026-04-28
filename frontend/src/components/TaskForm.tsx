@@ -111,7 +111,7 @@ export function TaskForm({
       <div className="card-body">
         <div className="row g-3">
           <div className="col-md-6">
-            <label className="form-label">Title</label>
+            <label className="form-label">Titulo</label>
             <input
               className="form-control"
               value={form.title}
@@ -120,7 +120,7 @@ export function TaskForm({
             />
           </div>
           <div className="col-md-3">
-            <label className="form-label">Due Date</label>
+            <label className="form-label">Fecha limite</label>
             <input
               type="datetime-local"
               className="form-control"
@@ -131,7 +131,7 @@ export function TaskForm({
           </div>
           {canEditPriority ? (
             <div className="col-md-3">
-              <label className="form-label">Priority</label>
+              <label className="form-label">Prioridad</label>
               <select
                 className="form-select"
                 value={form.priority}
@@ -148,7 +148,7 @@ export function TaskForm({
             </div>
           ) : null}
           <div className="col-12">
-            <label className="form-label">Description</label>
+            <label className="form-label">Descripcion</label>
             <textarea
               className="form-control"
               rows={3}
@@ -159,7 +159,7 @@ export function TaskForm({
           </div>
           {!lockedProjectId || canEditProject ? (
             <div className="col-md-4">
-              <label className="form-label">Project</label>
+              <label className="form-label">Proyecto</label>
               <select
                 className="form-select"
                 value={form.projectId}
@@ -167,7 +167,7 @@ export function TaskForm({
                 disabled={!canEditProject}
                 required
               >
-                <option value="">Select project</option>
+                <option value="">Selecciona un proyecto</option>
                 {projects.map((project) => (
                   <option key={project.id} value={project.id}>
                     {project.name}
@@ -178,14 +178,14 @@ export function TaskForm({
           ) : null}
           {canEditAssignee ? (
             <div className="col-md-4">
-              <label className="form-label">Assignee</label>
+              <label className="form-label">Asignado a</label>
               <select
                 className="form-select"
                 value={form.assignedToId}
                 onChange={(event) => setForm((current) => ({ ...current, assignedToId: event.target.value }))}
                 required={!initialTask}
               >
-                <option value="">Select user</option>
+                <option value="">Selecciona un usuario</option>
                 {users.map((user) => (
                   <option key={user.id} value={user.id}>
                     {user.name} ({user.role})
@@ -196,7 +196,7 @@ export function TaskForm({
           ) : null}
           {canEditStatus ? (
             <div className="col-md-4">
-              <label className="form-label">Status</label>
+              <label className="form-label">Estado</label>
               <select
                 className="form-select"
                 value={form.status}
@@ -213,7 +213,7 @@ export function TaskForm({
         </div>
         <div className="mt-3">
           <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Saving..." : submitLabel}
+            {busy ? "Guardando..." : submitLabel}
           </button>
         </div>
       </div>

@@ -36,10 +36,10 @@ export default function DashboardPage() {
   return (
     <AuthGuard>
       <PageHeader
-        title="Dashboard"
-        description={`Vista ${user ? roleLabels[user.role] : ""} con actividad reciente y próximos vencimientos.`}
+        title="Panel"
+        description={`Vista ${user ? roleLabels[user.role] : ""} con actividad reciente y proximos vencimientos.`}
       />
-      {loading ? <LoadingState label="Cargando dashboard..." /> : null}
+      {loading ? <LoadingState label="Cargando panel..." /> : null}
       {error ? <div className="alert alert-danger">{error}</div> : null}
       {summary && !loading ? (
         <>
@@ -61,19 +61,19 @@ export default function DashboardPage() {
               <div className="card shadow-sm border-0 h-100">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2 className="h5 mb-0">Upcoming deadlines</h2>
+                    <h2 className="h5 mb-0">Proximos vencimientos</h2>
                     <Link href="/tasks" className="btn btn-sm btn-outline-primary">
-                      View tasks
+                      Ver tareas
                     </Link>
                   </div>
                   <div className="table-responsive">
                     <table className="table align-middle mb-0">
                       <thead>
                         <tr>
-                          <th>Task</th>
-                          <th>Status</th>
-                          <th>Priority</th>
-                          <th>Due</th>
+                          <th>Tarea</th>
+                          <th>Estado</th>
+                          <th>Prioridad</th>
+                          <th>Vence</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                         ) : (
                           <tr>
                             <td colSpan={4} className="text-center text-secondary py-4">
-                              No upcoming tasks.
+                              No hay tareas proximas.
                             </td>
                           </tr>
                         )}
@@ -109,7 +109,7 @@ export default function DashboardPage() {
             <div className="col-lg-6">
               <div className="card shadow-sm border-0 h-100">
                 <div className="card-body">
-                  <h2 className="h5 mb-3">Recent activity</h2>
+                  <h2 className="h5 mb-3">Actividad reciente</h2>
                   <div className="d-flex flex-column gap-3">
                     {summary.recentActivity.length ? (
                       summary.recentActivity.map((task) => (
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                             <div>
                               <div className="fw-semibold">{task.title}</div>
                               <div className="small text-secondary">
-                                {task.project.name} • updated {formatDate(task.updatedAt)}
+                                {task.project.name} - actualizada {formatDate(task.updatedAt)}
                               </div>
                             </div>
                             <TaskStatusBadge status={task.status} />
@@ -126,7 +126,7 @@ export default function DashboardPage() {
                         </div>
                       ))
                     ) : (
-                      <p className="text-secondary mb-0">No recent activity yet.</p>
+                      <p className="text-secondary mb-0">Todavia no hay actividad reciente.</p>
                     )}
                   </div>
                 </div>

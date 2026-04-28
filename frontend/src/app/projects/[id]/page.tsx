@@ -68,7 +68,7 @@ export default function ProjectDetailPage() {
                 projects={[project]}
                 users={users}
                 lockedProjectId={project.id}
-                submitLabel="Create task"
+                submitLabel="Crear tarea"
                 onSubmit={handleCreateTask}
                 editableFields={{ project: false, assignee: currentRole !== "DEVELOPER", priority: true, status: false }}
               />
@@ -77,9 +77,9 @@ export default function ProjectDetailPage() {
               <div className="card shadow-sm border-0 h-100">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2 className="h5 mb-0">Tasks</h2>
+                    <h2 className="h5 mb-0">Tareas</h2>
                     <Link href="/tasks" className="btn btn-sm btn-outline-primary">
-                      Manage all tasks
+                      Administrar todas las tareas
                     </Link>
                   </div>
                   <div className="d-flex flex-column gap-3">
@@ -97,12 +97,12 @@ export default function ProjectDetailPage() {
                             </div>
                           </div>
                           <div className="small text-secondary">
-                            Assigned to {task.assignedTo.name} • Due {formatDate(task.dueDate)}
+                            Asignada a {task.assignedTo.name} - vence {formatDate(task.dueDate)}
                           </div>
                         </div>
                       ))
                     ) : (
-                      <p className="text-secondary mb-0">No tasks registered for this project.</p>
+                      <p className="text-secondary mb-0">No hay tareas registradas para este proyecto.</p>
                     )}
                   </div>
                 </div>

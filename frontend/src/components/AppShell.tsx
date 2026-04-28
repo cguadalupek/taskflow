@@ -34,25 +34,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
             <div className="d-flex align-items-center gap-3 flex-wrap">
               <Link href="/dashboard" className={`nav-link ${pathname.startsWith("/dashboard") ? "active" : ""}`}>
-                Dashboard
+                Panel
               </Link>
               <Link href="/projects" className={`nav-link ${pathname.startsWith("/projects") ? "active" : ""}`}>
-                Projects
+                Proyectos
               </Link>
               <Link href="/tasks" className={`nav-link ${pathname.startsWith("/tasks") ? "active" : ""}`}>
-                Tasks
+                Tareas
               </Link>
               {user.role === "ADMIN" ? (
                 <Link href="/users" className={`nav-link ${pathname.startsWith("/users") ? "active" : ""}`}>
-                  Users
+                  Usuarios
                 </Link>
               ) : null}
               <Link href="/profile" className={`nav-link ${pathname.startsWith("/profile") ? "active" : ""}`}>
-                Profile
+                Perfil
               </Link>
               <span className="badge text-bg-light border">{roleLabels[user.role]}</span>
               <button className="btn btn-outline-secondary btn-sm" onClick={handleLogout} disabled={busy}>
-                {busy ? "Cerrando..." : "Logout"}
+                {busy ? "Cerrando..." : "Salir"}
               </button>
             </div>
           </div>

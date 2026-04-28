@@ -55,7 +55,7 @@ export default function ProfilePage() {
 
   return (
     <AuthGuard>
-      <PageHeader title="Profile" description="Actualiza tus datos básicos y tu avatar opcional." />
+      <PageHeader title="Perfil" description="Actualiza tus datos basicos y tu avatar opcional." />
       <div className="row">
         <div className="col-lg-7">
           <form className="card shadow-sm border-0" onSubmit={handleSubmit}>
@@ -63,7 +63,7 @@ export default function ProfilePage() {
               {message ? <div className="alert alert-success">{message}</div> : null}
               {error ? <div className="alert alert-danger">{error}</div> : null}
               <div className="mb-3">
-                <label className="form-label">Name</label>
+                <label className="form-label">Nombre</label>
                 <input
                   className="form-control"
                   value={form.name}
@@ -72,7 +72,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Email</label>
+                <label className="form-label">Correo</label>
                 <input
                   type="email"
                   className="form-control"
@@ -82,7 +82,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="mb-4">
-                <label className="form-label">Avatar URL</label>
+                <label className="form-label">URL del avatar</label>
                 <input
                   type="url"
                   className="form-control"
@@ -91,7 +91,7 @@ export default function ProfilePage() {
                 />
               </div>
               <button className="btn btn-primary" disabled={busy}>
-                {busy ? "Saving..." : "Save profile"}
+                {busy ? "Guardando..." : "Guardar perfil"}
               </button>
             </div>
           </form>

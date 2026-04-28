@@ -60,14 +60,14 @@ export default function ProjectsPage() {
   return (
     <AuthGuard>
       <PageHeader
-        title="Projects"
-        description="Lista de proyectos visibles según tu rol y acceso actual."
+        title="Proyectos"
+        description="Lista de proyectos visibles segun tu rol y acceso actual."
       />
       {error ? <div className="alert alert-danger">{error}</div> : null}
       {canManageProjects ? (
         <div className="mb-4">
           <ProjectForm
-            submitLabel={editingProject ? "Update project" : "Create project"}
+            submitLabel={editingProject ? "Actualizar proyecto" : "Crear proyecto"}
             initialValues={
               editingProject
                 ? {
@@ -81,7 +81,7 @@ export default function ProjectsPage() {
           {editingProject ? (
             <div className="mt-2">
               <button className="btn btn-link px-0" onClick={() => setEditingProject(null)}>
-                Cancel editing
+                Cancelar edicion
               </button>
             </div>
           ) : null}
@@ -95,10 +95,10 @@ export default function ProjectsPage() {
               <table className="table align-middle mb-0">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Owner</th>
-                    <th>Status</th>
-                    <th>Tasks</th>
+                    <th>Nombre</th>
+                    <th>Responsable</th>
+                    <th>Estado</th>
+                    <th>Tareas</th>
                     <th />
                   </tr>
                 </thead>
@@ -118,16 +118,16 @@ export default function ProjectsPage() {
                         <td className="text-end">
                           <div className="d-flex justify-content-end gap-2 flex-wrap">
                             <Link href={`/projects/${project.id}`} className="btn btn-sm btn-outline-primary">
-                              Details
+                              Detalle
                             </Link>
                             {canManageProjects ? (
                               <button className="btn btn-sm btn-outline-secondary" onClick={() => setEditingProject(project)}>
-                                Edit
+                                Editar
                               </button>
                             ) : null}
                             {user?.role === "ADMIN" && project.status !== "ARCHIVED" ? (
                               <button className="btn btn-sm btn-outline-dark" onClick={() => handleArchive(project.id)}>
-                                Archive
+                                Archivar
                               </button>
                             ) : null}
                           </div>
@@ -137,7 +137,7 @@ export default function ProjectsPage() {
                   ) : (
                     <tr>
                       <td colSpan={5} className="text-center py-4 text-secondary">
-                        No projects available.
+                        No hay proyectos disponibles.
                       </td>
                     </tr>
                   )}

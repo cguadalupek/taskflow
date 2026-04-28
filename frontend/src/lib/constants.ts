@@ -7,20 +7,20 @@ export const taskPriorities: TaskPriority[] = ["LOW", "MEDIUM", "HIGH", "CRITICA
 
 export const roleLabels: Record<Role, string> = {
   ADMIN: "Admin",
-  PROJECT_MANAGER: "Project Manager",
-  DEVELOPER: "Developer",
+  PROJECT_MANAGER: "Lider de proyecto",
+  DEVELOPER: "Desarrollador",
 };
 
 export const statusLabels: Record<TaskStatus, string> = {
-  TODO: "To Do",
-  IN_PROGRESS: "In Progress",
-  IN_REVIEW: "In Review",
-  DONE: "Done",
+  TODO: "Por hacer",
+  IN_PROGRESS: "En progreso",
+  IN_REVIEW: "En revision",
+  DONE: "Completada",
 };
 
 export const priorityLabels: Record<TaskPriority, string> = {
-  LOW: "Low",
-  MEDIUM: "Medium",
-  HIGH: "High",
-  CRITICAL: "Critical",
+  LOW: "Baja",
+  MEDIUM: "Media",
+  HIGH: "Alta",
+  CRITICAL: "Critica",
 };

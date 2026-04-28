@@ -36,7 +36,7 @@ export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFor
       <div className="card-body">
         <div className="row g-3">
           <div className="col-md-4">
-            <label className="form-label">Name</label>
+            <label className="form-label">Nombre</label>
             <input
               className="form-control"
               value={form.name}
@@ -45,7 +45,7 @@ export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFor
             />
           </div>
           <div className="col-md-8">
-            <label className="form-label">Description</label>
+            <label className="form-label">Descripcion</label>
             <textarea
               className="form-control"
               rows={3}
@@ -57,7 +57,7 @@ export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFor
         </div>
         <div className="mt-3">
           <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Saving..." : submitLabel}
+            {busy ? "Guardando..." : submitLabel}
           </button>
         </div>
       </div>

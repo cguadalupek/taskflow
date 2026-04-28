@@ -58,13 +58,17 @@ export default function UsersPage() {
 
   return (
     <AuthGuard allowedRoles={["ADMIN"]}>
-      <PageHeader title="Users" description="Administración de usuarios con soft delete y roles." />
+      <PageHeader title="Usuarios" description="Administracion de usuarios con soft delete y roles." />
       {error ? <div className="alert alert-danger">{error}</div> : null}
       <div className="mb-4">
-        <UserForm submitLabel={selectedUser ? "Update user" : "Create user"} initialUser={selectedUser} onSubmit={selectedUser ? handleUpdate : handleCreate} />
+        <UserForm
+          submitLabel={selectedUser ? "Actualizar usuario" : "Crear usuario"}
+          initialUser={selectedUser}
+          onSubmit={selectedUser ? handleUpdate : handleCreate}
+        />
         {selectedUser ? (
           <button className="btn btn-link px-0 mt-2" onClick={() => setSelectedUser(null)}>
-            Cancel editing
+            Cancelar edicion
           </button>
         ) : null}
       </div>
@@ -76,10 +80,10 @@ export default function UsersPage() {
               <table className="table align-middle mb-0">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Created</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Creado</th>
                     <th />
                   </tr>
                 </thead>
@@ -94,10 +98,10 @@ export default function UsersPage() {
                         <td className="text-end">
                           <div className="d-flex justify-content-end gap-2">
                             <button className="btn btn-sm btn-outline-secondary" onClick={() => setSelectedUser(user)}>
-                              Edit
+                              Editar
                             </button>
                             <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(user.id)}>
-                              Delete
+                              Eliminar
                             </button>
                           </div>
                         </td>
@@ -106,7 +110,7 @@ export default function UsersPage() {
                   ) : (
                     <tr>
                       <td colSpan={5} className="text-center py-4 text-secondary">
-                        No users available.
+                        No hay usuarios disponibles.
                       </td>
                     </tr>
                   )}

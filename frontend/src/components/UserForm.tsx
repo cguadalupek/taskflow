@@ -52,7 +52,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
       <div className="card-body">
         <div className="row g-3">
           <div className="col-md-4">
-            <label className="form-label">Name</label>
+            <label className="form-label">Nombre</label>
             <input
               className="form-control"
               value={form.name}
@@ -61,7 +61,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
             />
           </div>
           <div className="col-md-4">
-            <label className="form-label">Email</label>
+            <label className="form-label">Correo</label>
             <input
               type="email"
               className="form-control"
@@ -71,7 +71,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
             />
           </div>
           <div className="col-md-4">
-            <label className="form-label">Role</label>
+            <label className="form-label">Rol</label>
             <select
               className="form-select"
               value={form.role}
@@ -86,7 +86,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
           </div>
           {!initialUser ? (
             <div className="col-md-6">
-              <label className="form-label">Password</label>
+              <label className="form-label">Contrasena</label>
               <input
                 type="password"
                 className="form-control"
@@ -97,7 +97,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
             </div>
           ) : null}
           <div className="col-md-6">
-            <label className="form-label">Avatar URL</label>
+            <label className="form-label">URL del avatar</label>
             <input
               type="url"
               className="form-control"
@@ -108,7 +108,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
         </div>
         <div className="mt-3">
           <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Saving..." : submitLabel}
+            {busy ? "Guardando..." : submitLabel}
           </button>
         </div>
       </div>

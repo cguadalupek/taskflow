@@ -74,7 +74,7 @@ Credenciales iniciales:
 
 - Admin: `admin@taskflow.com` / `Admin123!`
 - Project Manager: `maria@taskflow.com` / `Maria123!`
-- Developer: `carlos@taskflow.com` / `Carlos123!`
+- Developer: `kevin@taskflow.com` / `Kevin123!`
 
 Además se crean:
 

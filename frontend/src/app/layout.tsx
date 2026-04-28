@@ -6,7 +6,7 @@ import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "TaskFlow Pro",
-  description: "Project and task management for small teams",
+  description: "Gestion de proyectos y tareas para equipos pequenos",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -28,7 +28,7 @@ export function PriorityBadge({ priority }: { priority: TaskPriority }) {
 export function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
   return (
     <span className={`badge ${status === "ACTIVE" ? "text-bg-success" : "text-bg-dark"}`}>
-      {status === "ACTIVE" ? "Active" : "Archived"}
+      {status === "ACTIVE" ? "Activo" : "Archivado"}
     </span>
   );
 }

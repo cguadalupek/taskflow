@@ -62,7 +62,7 @@ export default function LoginPage() {
                   <span className="badge text-bg-success-subtle border border-success-subtle text-success mb-3">
                     TaskFlow Pro
                   </span>
-                  <h1 className="h3 mb-2">Sign in</h1>
+                  <h1 className="h3 mb-2">Iniciar sesion</h1>
                   <p className="text-secondary mb-0">
                     Usa las credenciales del seeder o entra con tu cuenta registrada.
                   </p>
@@ -70,7 +70,7 @@ export default function LoginPage() {
                 {error ? <div className="alert alert-danger">{error}</div> : null}
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <label className="form-label">Email</label>
+                    <label className="form-label">Correo</label>
                     <input
                       type="email"
                       className="form-control"
@@ -80,7 +80,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Password</label>
+                    <label className="form-label">Contrasena</label>
                     <input
                       type="password"
                       className="form-control"
@@ -90,11 +90,11 @@ export default function LoginPage() {
                     />
                   </div>
                   <button className="btn btn-primary w-100" disabled={busy}>
-                    {busy ? "Ingresando..." : "Login"}
+                    {busy ? "Ingresando..." : "Entrar"}
                   </button>
                 </form>
                 <div className="mt-4 p-3 rounded bg-light border">
-                  <div className="small text-secondary">Seeder admin</div>
+                  <div className="small text-secondary">Usuario admin de prueba</div>
                   <div className="fw-semibold">admin@taskflow.com</div>
                   <div className="fw-semibold">Admin123!</div>
                 </div>
