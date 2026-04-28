@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ProjectPayload } from "@/types";
 
 type ProjectFormProps = {
@@ -9,14 +9,22 @@ type ProjectFormProps = {
   onSubmit: (payload: ProjectPayload) => Promise<void>;
 };
 
-export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFormProps) {
-  const [form, setForm] = useState<ProjectPayload>(
+function buildInitialState(initialValues?: ProjectPayload) {
+  return (
     initialValues ?? {
       name: "",
       description: "",
-    },
+    }
   );
+}
+
+export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFormProps) {
+  const [form, setForm] = useState<ProjectPayload>(() => buildInitialState(initialValues));
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setForm(buildInitialState(initialValues));
+  }, [initialValues]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +32,7 @@ export function ProjectForm({ initialValues, submitLabel, onSubmit }: ProjectFor
     try {
       await onSubmit(form);
       if (!initialValues) {
-        setForm({ name: "", description: "" });
+        setForm(buildInitialState());
       }
     } finally {
       setBusy(false);
