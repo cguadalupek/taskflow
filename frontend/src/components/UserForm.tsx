@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { roles } from "@/lib/constants";
 import type { Role, User, UserPayload } from "@/types";
 
@@ -10,15 +10,23 @@ type UserFormProps = {
   initialUser?: User | null;
 };
 
-export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) {
-  const [form, setForm] = useState({
+function buildInitialState(initialUser?: User | null) {
+  return {
     name: initialUser?.name ?? "",
     email: initialUser?.email ?? "",
     password: "",
     role: initialUser?.role ?? ("DEVELOPER" as Role),
     avatarUrl: initialUser?.avatarUrl ?? "",
-  });
+  };
+}
+
+export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) {
+  const [form, setForm] = useState(() => buildInitialState(initialUser));
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setForm(buildInitialState(initialUser));
+  }, [initialUser]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,13 +42,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
       });
 
       if (!initialUser) {
-        setForm({
-          name: "",
-          email: "",
-          password: "",
-          role: "DEVELOPER",
-          avatarUrl: "",
-        });
+        setForm(buildInitialState(null));
       }
     } finally {
       setBusy(false);
