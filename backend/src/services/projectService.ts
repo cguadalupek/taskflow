@@ -144,6 +144,12 @@ export const projectService = {
   },
 
   async archiveProject(id: number) {
+    const project = await prisma.project.findUnique({ where: { id } });
+
+    if (!project) {
+      throw new ApiError(404, "Proyecto no encontrado");
+    }
+
     return prisma.project.update({
       where: { id },
       data: { status: ProjectStatus.ARCHIVED },
@@ -153,6 +159,19 @@ export const projectService = {
         },
       },
     });
+  },
+
+  async deleteProject(id: number) {
+    const project = await prisma.project.findUnique({ where: { id } });
+
+    if (!project) {
+      throw new ApiError(404, "Proyecto no encontrado");
+    }
+
+    await prisma.$transaction([
+      prisma.task.deleteMany({ where: { projectId: id } }),
+      prisma.project.delete({ where: { id } }),
+    ]);
   },
 
   async ensureProjectManageAccess(user: NonNullable<Express.Request["user"]>, projectId: number) {

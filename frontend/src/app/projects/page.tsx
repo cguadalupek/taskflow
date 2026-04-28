@@ -8,8 +8,8 @@ import { PageHeader } from "@/components/PageHeader";
 import { ProjectForm } from "@/components/ProjectForm";
 import { ProjectStatusBadge } from "@/components/StatusBadge";
 import { useAuth } from "@/hooks/useAuth";
-import { getFirstErrorMessage } from "@/lib/format";
-import { api } from "@/services/api";
+import { flattenApiErrors, getFirstErrorMessage } from "@/lib/format";
+import { ApiClientError, api } from "@/services/api";
 import type { Project, ProjectPayload } from "@/types";
 
 export default function ProjectsPage() {
@@ -36,9 +36,17 @@ export default function ProjectsPage() {
   }, []);
 
   const handleCreate = async (payload: ProjectPayload) => {
-    await api.createProject(payload);
-    setError(null);
-    await loadProjects();
+    try {
+      await api.createProject(payload);
+      setError(null);
+      await loadProjects();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
   };
 
   const handleUpdate = async (payload: ProjectPayload) => {
@@ -46,15 +54,49 @@ export default function ProjectsPage() {
       return;
     }
 
-    await api.updateProject(editingProject.id, payload);
-    setEditingProject(null);
-    setError(null);
-    await loadProjects();
+    try {
+      await api.updateProject(editingProject.id, payload);
+      setEditingProject(null);
+      setError(null);
+      await loadProjects();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
   };
 
   const handleArchive = async (id: number) => {
-    await api.archiveProject(id);
-    await loadProjects();
+    try {
+      await api.archiveProject(id);
+      setError(null);
+      await loadProjects();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await api.deleteProject(id);
+      if (editingProject?.id === id) {
+        setEditingProject(null);
+      }
+      setError(null);
+      await loadProjects();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
   };
 
   return (
@@ -128,6 +170,11 @@ export default function ProjectsPage() {
                             {user?.role === "ADMIN" && project.status !== "ARCHIVED" ? (
                               <button className="btn btn-sm btn-outline-dark" onClick={() => handleArchive(project.id)}>
                                 Archivar
+                              </button>
+                            ) : null}
+                            {user?.role === "ADMIN" ? (
+                              <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(project.id)}>
+                                Eliminar
                               </button>
                             ) : null}
                           </div>

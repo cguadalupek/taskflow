@@ -45,4 +45,12 @@ export const projectController = {
       data: project,
     });
   },
+
+  async deleteProject(req: Request, res: Response) {
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    await projectService.deleteProject(Number(params.id));
+    return sendSuccess(res, {
+      message: "Proyecto eliminado correctamente",
+    });
+  },
 };

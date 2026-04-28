@@ -580,6 +580,28 @@ registry.registerPath({
 });
 
 registry.registerPath({
+  method: "delete",
+  path: "/projects/{id}",
+  tags: projectsTag,
+  summary: "Eliminar proyecto",
+  description: "Disponible solo para ADMIN. Elimina el proyecto y sus tareas asociadas.",
+  security: [{ cookieAuth: [] }],
+  request: {
+    params: idParamSchema,
+  },
+  responses: {
+    200: {
+      description: "Proyecto eliminado correctamente.",
+      content: jsonContent(successResponseSchema(z.null())),
+    },
+    404: {
+      description: "Proyecto no encontrado.",
+      content: jsonContent(errorResponseSchema),
+    },
+  },
+});
+
+registry.registerPath({
   method: "get",
   path: "/tasks",
   tags: tasksTag,

@@ -34,5 +34,12 @@ router.patch(
   validate(idParamSchema, "params"),
   asyncHandler(projectController.archiveProject),
 );
+router.delete(
+  "/:id",
+  requireAuth,
+  authorizeRoles(Role.ADMIN),
+  validate(idParamSchema, "params"),
+  asyncHandler(projectController.deleteProject),
+);
 
 export default router;

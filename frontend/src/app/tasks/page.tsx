@@ -371,7 +371,7 @@ export default function TasksPage() {
             <div className="card shadow-sm border-0 mb-3">
               <div className="card-body">
                 <div className="small text-secondary text-uppercase fw-semibold">
-                  {selectedTask ? "Edicion" : "Accion rapida"}
+                  {selectedTask ? "Edicion" : ""}
                 </div>
                 <h2 className="h5 mb-1">{selectedTask ? "Editar tarea" : "Nueva tarea"}</h2>
                 <p className="text-secondary mb-0">
@@ -402,7 +402,6 @@ export default function TasksPage() {
               </button>
             ) : (
               <div className="small text-secondary mt-2">
-                La creacion vive en este panel para no mezclarla con los filtros de lectura.
               </div>
             )}
           </div>

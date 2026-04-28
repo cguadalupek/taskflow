@@ -118,6 +118,12 @@ export const api = {
     });
   },
 
+  deleteProject(id: number) {
+    return request<null>(`/projects/${id}`, {
+      method: "DELETE",
+    });
+  },
+
   getTasks(params: Record<string, string | number | undefined> = {}) {
     return request<Task[]>(`/tasks${createQueryString(params)}`);
   },
