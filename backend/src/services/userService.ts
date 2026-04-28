@@ -17,7 +17,7 @@ type CreateUserInput = {
   email: string;
   password: string;
   role: "ADMIN" | "PROJECT_MANAGER" | "DEVELOPER";
-  avatarUrl?: string;
+  avatarUrl?: string | null;
 };
 
 type UpdateUserInput = {

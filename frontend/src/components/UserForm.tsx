@@ -33,12 +33,14 @@ export function UserForm({ submitLabel, onSubmit, initialUser }: UserFormProps) 
     setBusy(true);
 
     try {
+      const avatarUrl = form.avatarUrl || (initialUser ? null : undefined);
+
       await onSubmit({
         name: form.name,
         email: form.email,
         password: form.password || undefined,
         role: form.role,
-        avatarUrl: form.avatarUrl || null,
+        avatarUrl,
       });
 
       if (!initialUser) {

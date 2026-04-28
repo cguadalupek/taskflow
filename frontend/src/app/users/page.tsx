@@ -6,8 +6,8 @@ import { LoadingState } from "@/components/LoadingState";
 import { PageHeader } from "@/components/PageHeader";
 import { UserForm } from "@/components/UserForm";
 import { roleLabels } from "@/lib/constants";
-import { formatDate, getFirstErrorMessage } from "@/lib/format";
-import { api } from "@/services/api";
+import { flattenApiErrors, formatDate, getFirstErrorMessage } from "@/lib/format";
+import { ApiClientError, api } from "@/services/api";
 import type { User, UserPayload } from "@/types";
 
 export default function UsersPage() {
@@ -32,9 +32,17 @@ export default function UsersPage() {
   }, []);
 
   const handleCreate = async (payload: UserPayload) => {
-    await api.createUser(payload);
-    setError(null);
-    await loadUsers();
+    try {
+      await api.createUser(payload);
+      setError(null);
+      await loadUsers();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
   };
 
   const handleUpdate = async (payload: UserPayload) => {
@@ -42,18 +50,35 @@ export default function UsersPage() {
       return;
     }
 
-    await api.updateUser(selectedUser.id, payload);
-    setSelectedUser(null);
-    setError(null);
-    await loadUsers();
+    try {
+      await api.updateUser(selectedUser.id, payload);
+      setSelectedUser(null);
+      setError(null);
+      await loadUsers();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
+    }
   };
 
   const handleDelete = async (userId: number) => {
-    await api.deleteUser(userId);
-    if (selectedUser?.id === userId) {
-      setSelectedUser(null);
+    try {
+      await api.deleteUser(userId);
+      if (selectedUser?.id === userId) {
+        setSelectedUser(null);
+      }
+      setError(null);
+      await loadUsers();
+    } catch (caughtError) {
+      if (caughtError instanceof ApiClientError) {
+        setError([caughtError.message, ...flattenApiErrors(caughtError.errors)].join(" "));
+      } else {
+        setError(getFirstErrorMessage(caughtError));
+      }
     }
-    await loadUsers();
   };
 
   return (
