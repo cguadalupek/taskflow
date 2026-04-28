@@ -49,7 +49,7 @@ const basicUserSchema = registry.register(
   "BasicUser",
   z.object({
     id: z.number().int().openapi({ example: 1 }),
-    name: z.string().openapi({ example: "Admin User" }),
+    name: z.string().openapi({ example: "Administrador General" }),
     email: z.string().email().openapi({ example: "admin@taskflow.com" }),
     role: roleSchema,
   }),
@@ -341,7 +341,7 @@ registry.registerPath({
     body: {
       required: true,
       content: jsonContent(updateProfileSchema, {
-        name: "Admin User",
+        name: "Administrador General",
         email: "admin@taskflow.com",
         avatarUrl: "https://example.com/admin.png",
       }),

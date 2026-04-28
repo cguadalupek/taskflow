@@ -18,7 +18,7 @@ async function main() {
 
   const admin = await prisma.user.create({
     data: {
-      name: "Admin User",
+      name: "Administrador General",
       email: "admin@taskflow.com",
       passwordHash: adminPassword,
       role: Role.ADMIN,

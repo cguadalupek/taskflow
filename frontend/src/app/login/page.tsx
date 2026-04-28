@@ -94,7 +94,7 @@ export default function LoginPage() {
                   </button>
                 </form>
                 <div className="mt-4 p-3 rounded bg-light border">
-                  <div className="small text-secondary">Usuario admin de prueba</div>
+                  <div className="small text-secondary">Cuenta administradora de ejemplo</div>
                   <div className="fw-semibold">admin@taskflow.com</div>
                   <div className="fw-semibold">Admin123!</div>
                 </div>
