@@ -24,3 +24,19 @@ body {
 .table > :not(caption) > * > * {
   vertical-align: middle;
 }
+
+.task-sidebar {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.table td .badge {
+  white-space: nowrap;
+}
+
+@media (max-width: 1199.98px) {
+  .task-sidebar {
+    position: static;
+    top: auto;
+  }
+}

@@ -57,9 +57,11 @@ export function TaskForm({
 }: TaskFormProps) {
   const [form, setForm] = useState<FormState>(() => buildInitialState(initialTask, lockedProjectId));
   const [busy, setBusy] = useState(false);
+  const [clientError, setClientError] = useState<string | null>(null);
 
   useEffect(() => {
     setForm(buildInitialState(initialTask, lockedProjectId));
+    setClientError(null);
   }, [initialTask, lockedProjectId]);
 
   const canEditProject = editableFields.project ?? !lockedProjectId;
@@ -69,18 +71,48 @@ export function TaskForm({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const trimmedTitle = form.title.trim();
+    const trimmedDescription = form.description.trim();
+    const selectedProjectId = Number(lockedProjectId ?? form.projectId);
+
+    if (trimmedTitle.length < 2) {
+      setClientError("El titulo debe tener al menos 2 caracteres.");
+      return;
+    }
+
+    if (trimmedDescription.length < 5) {
+      setClientError("La descripcion debe tener al menos 5 caracteres.");
+      return;
+    }
+
+    if (!form.dueDate) {
+      setClientError("Debes indicar una fecha limite.");
+      return;
+    }
+
+    if (!initialTask && (!selectedProjectId || Number.isNaN(selectedProjectId))) {
+      setClientError("Debes seleccionar un proyecto.");
+      return;
+    }
+
+    if (!initialTask && canEditAssignee && !form.assignedToId) {
+      setClientError("Debes asignar la tarea a un usuario.");
+      return;
+    }
+
+    setClientError(null);
     setBusy(true);
 
     try {
       const payload: TaskPayload = {
-        title: form.title,
-        description: form.description,
+        title: trimmedTitle,
+        description: trimmedDescription,
         dueDate: form.dueDate ? new Date(form.dueDate).toISOString() : undefined,
       };
 
       if (!initialTask) {
         payload.priority = form.priority;
-        payload.projectId = Number(lockedProjectId ?? form.projectId);
+        payload.projectId = selectedProjectId;
         if (role !== "DEVELOPER" && form.assignedToId) {
           payload.assignedToId = Number(form.assignedToId);
         }
@@ -109,8 +141,12 @@ export function TaskForm({
   return (
     <form className="card shadow-sm border-0" onSubmit={handleSubmit}>
       <div className="card-body">
+        {clientError ? <div className="alert alert-warning">{clientError}</div> : null}
+        <div className="small text-secondary mb-3">
+          Completa los datos esenciales y usa los campos avanzados solo cuando apliquen para tu rol.
+        </div>
         <div className="row g-3">
-          <div className="col-md-6">
+          <div className="col-12">
             <label className="form-label">Titulo</label>
             <input
               className="form-control"
@@ -119,7 +155,7 @@ export function TaskForm({
               required
             />
           </div>
-          <div className="col-md-3">
+          <div className="col-md-6">
             <label className="form-label">Fecha limite</label>
             <input
               type="datetime-local"
@@ -130,7 +166,7 @@ export function TaskForm({
             />
           </div>
           {canEditPriority ? (
-            <div className="col-md-3">
+            <div className="col-md-6">
               <label className="form-label">Prioridad</label>
               <select
                 className="form-select"
@@ -151,14 +187,14 @@ export function TaskForm({
             <label className="form-label">Descripcion</label>
             <textarea
               className="form-control"
-              rows={3}
+              rows={4}
               value={form.description}
               onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))}
               required
             />
           </div>
           {!lockedProjectId || canEditProject ? (
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Proyecto</label>
               <select
                 className="form-select"
@@ -177,7 +213,7 @@ export function TaskForm({
             </div>
           ) : null}
           {canEditAssignee ? (
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Asignado a</label>
               <select
                 className="form-select"
@@ -195,7 +231,7 @@ export function TaskForm({
             </div>
           ) : null}
           {canEditStatus ? (
-            <div className="col-md-4">
+            <div className="col-12">
               <label className="form-label">Estado</label>
               <select
                 className="form-select"
