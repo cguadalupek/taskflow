@@ -36,7 +36,11 @@ function getProjectVisibilityScope(user: NonNullable<Express.Request["user"]>) {
 
 export const projectService = {
   async listProjects(user: NonNullable<Express.Request["user"]>, query: ProjectListQuery) {
-    const { page, limit, sortBy = "createdAt", sortOrder, status } = query;
+    const page = Number(query.page);
+    const limit = Number(query.limit);
+    const sortBy = query.sortBy ?? "createdAt";
+    const sortOrder = query.sortOrder;
+    const status = query.status;
     const where = {
       ...getProjectVisibilityScope(user),
       ...(status ? { status } : {}),

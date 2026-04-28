@@ -9,6 +9,11 @@ declare global {
         name: string;
         role: Role;
       };
+      validated?: {
+        body?: unknown;
+        query?: unknown;
+        params?: unknown;
+      };
     }
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { api } from "@/services/api";
 import type { LoginPayload, User } from "@/types";
 
@@ -15,10 +16,14 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refreshUser = async () => {
+    setLoading(true);
+
     try {
       const response = await api.getCurrentUser();
       setUser(response.data);
@@ -30,8 +35,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    refreshUser();
-  }, []);
+    let cancelled = false;
+    const isPublicRoute = pathname === "/login";
+
+    const syncSession = async () => {
+      if (isPublicRoute) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const response = await api.getCurrentUser();
+
+        if (!cancelled) {
+          setUser(response.data);
+        }
+      } catch {
+        if (!cancelled) {
+          setUser(null);
+          router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    syncSession();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname, router]);
 
   const value = useMemo<AuthContextValue>(
     () => ({

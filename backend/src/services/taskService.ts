@@ -54,7 +54,14 @@ function getTaskVisibilityScope(user: NonNullable<Express.Request["user"]>) {
 
 export const taskService = {
   async listTasks(user: NonNullable<Express.Request["user"]>, query: TaskListQuery) {
-    const { page, limit, sortBy = "createdAt", sortOrder, status, priority, assignedTo, projectId } = query;
+    const page = Number(query.page);
+    const limit = Number(query.limit);
+    const sortBy = query.sortBy ?? "createdAt";
+    const sortOrder = query.sortOrder;
+    const status = query.status;
+    const priority = query.priority;
+    const assignedTo = query.assignedTo ? Number(query.assignedTo) : undefined;
+    const projectId = query.projectId ? Number(query.projectId) : undefined;
     const where = {
       ...getTaskVisibilityScope(user),
       ...(status ? { status } : {}),

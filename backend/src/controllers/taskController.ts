@@ -4,7 +4,7 @@ import { sendSuccess } from "../utils/response";
 
 export const taskController = {
   async listTasks(req: Request, res: Response) {
-    const result = await taskService.listTasks(req.user!, req.query as never);
+    const result = await taskService.listTasks(req.user!, (req.validated?.query ?? req.query) as never);
     return sendSuccess(res, {
       data: result.data,
       meta: result.meta,
@@ -12,7 +12,8 @@ export const taskController = {
   },
 
   async getTask(req: Request, res: Response) {
-    const task = await taskService.getTaskById(req.user!, Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const task = await taskService.getTaskById(req.user!, Number(params.id));
     return sendSuccess(res, {
       data: task,
     });
@@ -28,7 +29,8 @@ export const taskController = {
   },
 
   async updateTask(req: Request, res: Response) {
-    const task = await taskService.updateTask(req.user!, Number(req.params.id), req.body);
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const task = await taskService.updateTask(req.user!, Number(params.id), req.body);
     return sendSuccess(res, {
       message: "Tarea actualizada correctamente",
       data: task,
@@ -36,7 +38,8 @@ export const taskController = {
   },
 
   async updateTaskStatus(req: Request, res: Response) {
-    const task = await taskService.updateTaskStatus(req.user!, Number(req.params.id), req.body.status);
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const task = await taskService.updateTaskStatus(req.user!, Number(params.id), req.body.status);
     return sendSuccess(res, {
       message: "Estado actualizado correctamente",
       data: task,
@@ -44,7 +47,8 @@ export const taskController = {
   },
 
   async deleteTask(req: Request, res: Response) {
-    await taskService.deleteTask(req.user!, Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    await taskService.deleteTask(req.user!, Number(params.id));
     return sendSuccess(res, {
       message: "Tarea eliminada correctamente",
     });

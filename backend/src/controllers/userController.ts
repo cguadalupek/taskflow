@@ -11,7 +11,7 @@ export const userController = {
   },
 
   async listUsers(req: Request, res: Response) {
-    const result = await userService.listUsers(req.query as never);
+    const result = await userService.listUsers((req.validated?.query ?? req.query) as never);
     return sendSuccess(res, {
       data: result.data,
       meta: result.meta,
@@ -28,14 +28,16 @@ export const userController = {
   },
 
   async getUser(req: Request, res: Response) {
-    const user = await userService.getUserById(Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const user = await userService.getUserById(Number(params.id));
     return sendSuccess(res, {
       data: user,
     });
   },
 
   async updateUser(req: Request, res: Response) {
-    const user = await userService.updateUser(Number(req.params.id), req.body);
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const user = await userService.updateUser(Number(params.id), req.body);
     return sendSuccess(res, {
       message: "Usuario actualizado correctamente",
       data: user,
@@ -43,7 +45,8 @@ export const userController = {
   },
 
   async deleteUser(req: Request, res: Response) {
-    const user = await userService.softDeleteUser(Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const user = await userService.softDeleteUser(Number(params.id));
     return sendSuccess(res, {
       message: "Usuario eliminado correctamente",
       data: user,

@@ -48,7 +48,10 @@ export const userService = {
   },
 
   async listUsers(query: UserListQuery) {
-    const { page, limit, sortBy = "createdAt", sortOrder } = query;
+    const page = Number(query.page);
+    const limit = Number(query.limit);
+    const sortBy = query.sortBy ?? "createdAt";
+    const sortOrder = query.sortOrder;
     const where = { deletedAt: null };
 
     const [users, total] = await Promise.all([

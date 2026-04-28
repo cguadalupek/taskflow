@@ -4,7 +4,7 @@ import { sendSuccess } from "../utils/response";
 
 export const projectController = {
   async listProjects(req: Request, res: Response) {
-    const result = await projectService.listProjects(req.user!, req.query as never);
+    const result = await projectService.listProjects(req.user!, (req.validated?.query ?? req.query) as never);
     return sendSuccess(res, {
       data: result.data,
       meta: result.meta,
@@ -12,7 +12,8 @@ export const projectController = {
   },
 
   async getProject(req: Request, res: Response) {
-    const project = await projectService.getProjectById(req.user!, Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const project = await projectService.getProjectById(req.user!, Number(params.id));
     return sendSuccess(res, {
       data: project,
     });
@@ -28,7 +29,8 @@ export const projectController = {
   },
 
   async updateProject(req: Request, res: Response) {
-    const project = await projectService.updateProject(req.user!, Number(req.params.id), req.body);
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const project = await projectService.updateProject(req.user!, Number(params.id), req.body);
     return sendSuccess(res, {
       message: "Proyecto actualizado correctamente",
       data: project,
@@ -36,7 +38,8 @@ export const projectController = {
   },
 
   async archiveProject(req: Request, res: Response) {
-    const project = await projectService.archiveProject(Number(req.params.id));
+    const params = (req.validated?.params ?? req.params) as { id: number | string };
+    const project = await projectService.archiveProject(Number(params.id));
     return sendSuccess(res, {
       message: "Proyecto archivado correctamente",
       data: project,
