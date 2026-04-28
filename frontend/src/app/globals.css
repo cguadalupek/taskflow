@@ -1,0 +1,26 @@
+:root {
+  --bs-body-bg: #f6f7fb;
+  --bs-body-color: #1f2937;
+  --bs-primary: #14532d;
+  --bs-primary-rgb: 20, 83, 45;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(20, 83, 45, 0.08), transparent 30%),
+    linear-gradient(180deg, #fbfcff 0%, #f1f5f9 100%);
+  min-height: 100vh;
+}
+
+.nav-link.active {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}

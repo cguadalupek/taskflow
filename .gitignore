@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.next/
+.env
+.env.local
+.env.*.local
+backend/logs/*.log
+coverage/
+*.tsbuildinfo
+*.swp
+*.swo
+.DS_Store
