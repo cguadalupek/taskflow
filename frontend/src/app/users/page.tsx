@@ -89,6 +89,7 @@ export default function UsersPage() {
         <UserForm
           submitLabel={selectedUser ? "Actualizar usuario" : "Crear usuario"}
           initialUser={selectedUser}
+          onInteraction={() => setError(null)}
           onSubmit={selectedUser ? handleUpdate : handleCreate}
         />
         {selectedUser ? (
