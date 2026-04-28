@@ -13,7 +13,7 @@ async function main() {
   const [adminPassword, managerPassword, developerPassword] = await Promise.all([
     bcrypt.hash("Admin123!", saltRounds),
     bcrypt.hash("Maria123!", saltRounds),
-    bcrypt.hash("Carlos123!", saltRounds),
+    bcrypt.hash("Kevin123!", saltRounds),
   ]);
 
   const admin = await prisma.user.create({
@@ -27,7 +27,7 @@ async function main() {
 
   const manager = await prisma.user.create({
     data: {
-      name: "María García",
+      name: "Maria Garcia",
       email: "maria@taskflow.com",
       passwordHash: managerPassword,
       role: Role.PROJECT_MANAGER,
@@ -36,8 +36,8 @@ async function main() {
 
   const developer = await prisma.user.create({
     data: {
-      name: "Carlos López",
-      email: "carlos@taskflow.com",
+      name: "Kevin Carmen",
+      email: "kevin@taskflow.com",
       passwordHash: developerPassword,
       role: Role.DEVELOPER,
     },
@@ -45,8 +45,8 @@ async function main() {
 
   const websiteProject = await prisma.project.create({
     data: {
-      name: "Website Refresh",
-      description: "Landing page and marketing site refresh.",
+      name: "Rediseno del sitio web",
+      description: "Actualizacion de la landing page y del sitio de marketing.",
       status: ProjectStatus.ACTIVE,
       ownerId: manager.id,
     },
@@ -54,8 +54,8 @@ async function main() {
 
   const mobileProject = await prisma.project.create({
     data: {
-      name: "Mobile App QA",
-      description: "Stabilization sprint for the mobile release.",
+      name: "Control de calidad de la app movil",
+      description: "Sprint de estabilizacion para la salida de la aplicacion movil.",
       status: ProjectStatus.ARCHIVED,
       ownerId: admin.id,
     },
@@ -67,8 +67,8 @@ async function main() {
   await prisma.task.createMany({
     data: [
       {
-        title: "Define homepage sections",
-        description: "Break down the final homepage sections for content and layout.",
+        title: "Definir secciones de la pagina principal",
+        description: "Desglosar las secciones finales de la pagina principal para contenido y estructura.",
         status: TaskStatus.TODO,
         priority: TaskPriority.HIGH,
         projectId: websiteProject.id,
@@ -77,8 +77,8 @@ async function main() {
         dueDate: addDays(2),
       },
       {
-        title: "Implement hero redesign",
-        description: "Build the hero component with updated CTA and responsive layout.",
+        title: "Implementar rediseno del hero",
+        description: "Construir el componente principal con CTA actualizada y un layout responsive.",
         status: TaskStatus.IN_PROGRESS,
         priority: TaskPriority.CRITICAL,
         projectId: websiteProject.id,
@@ -87,8 +87,8 @@ async function main() {
         dueDate: addDays(4),
       },
       {
-        title: "Review copy draft",
-        description: "Validate final copy before publishing the landing page.",
+        title: "Revisar borrador del contenido",
+        description: "Validar el texto final antes de publicar la landing page.",
         status: TaskStatus.IN_REVIEW,
         priority: TaskPriority.MEDIUM,
         projectId: websiteProject.id,
@@ -97,8 +97,8 @@ async function main() {
         dueDate: addDays(1),
       },
       {
-        title: "Close QA regression list",
-        description: "Verify archived bugs are documented before release freeze.",
+        title: "Cerrar lista de regresiones de QA",
+        description: "Verificar que los bugs archivados esten documentados antes del congelamiento de release.",
         status: TaskStatus.DONE,
         priority: TaskPriority.LOW,
         projectId: mobileProject.id,
@@ -107,8 +107,8 @@ async function main() {
         dueDate: addDays(-2),
       },
       {
-        title: "Prepare release notes",
-        description: "Summarize the archived sprint outcomes for stakeholders.",
+        title: "Preparar notas de version",
+        description: "Resumir los resultados del sprint archivado para los stakeholders.",
         status: TaskStatus.TODO,
         priority: TaskPriority.MEDIUM,
         projectId: mobileProject.id,
