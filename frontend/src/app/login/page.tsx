@@ -81,7 +81,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Contrasena</label>
+                    <label className="form-label">Contraseña</label>
                     <div className="input-group">
                       <input
                         type={showPassword ? "text" : "password"}
@@ -94,7 +94,7 @@ export default function LoginPage() {
                         type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => setShowPassword((current) => !current)}
-                        aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}
+                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                         aria-pressed={showPassword}
                       >
                         {showPassword ? (
