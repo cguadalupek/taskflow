@@ -1,6 +1,6 @@
 # TaskFlow Pro
 
-TaskFlow Pro es una prueba técnica full stack para gestionar proyectos, tareas y usuarios en equipos pequeños. Incluye autenticación por JWT en cookie `httpOnly`, autorización por roles, CRUD principal, dashboard, Swagger y soporte con Docker Compose.
+TaskFlow Pro es una aplicación full stack para gestionar proyectos, tareas y usuarios en equipos pequeños. Incluye autenticación por JWT en cookie `httpOnly`, autorización por roles, CRUD principal, dashboard, Swagger y soporte con Docker Compose.
 
 ## Stack
 

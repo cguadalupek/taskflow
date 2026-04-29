@@ -12,7 +12,7 @@ La meta de esta versión es priorizar una entrega funcional, entendible y defend
 ## Justificación del stack
 
 - Next.js 15 permite construir una UI rápida con routing claro y despliegue estándar.
-- Express mantiene el backend simple y explícito para una prueba técnica.
+- Express mantiene el backend simple.
 - Prisma acelera modelado, relaciones y acceso seguro a MySQL.
 - Zod centraliza la validación de entrada.
 - JWT en cookie `httpOnly` simplifica el flujo de autenticación entre frontend y backend sin exponer el token en `localStorage`.
