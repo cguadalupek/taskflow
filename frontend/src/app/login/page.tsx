@@ -19,9 +19,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      router.replace("/dashboard");
+      router.replace(nextPath);
     }
-  }, [loading, router, user]);
+  }, [loading, nextPath, router, user]);
 
   useEffect(() => {
     const next = new URLSearchParams(window.location.search).get("next");
