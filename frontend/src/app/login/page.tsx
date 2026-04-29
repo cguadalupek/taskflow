@@ -16,6 +16,7 @@ export default function LoginPage() {
   const [nextPath, setNextPath] = useState("/dashboard");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (!loading && user) {
@@ -80,14 +81,48 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Contraseña</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      value={form.password}
-                      onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
-                      required
-                    />
+                    <label className="form-label">Contrasena</label>
+                    <div className="input-group">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        className="form-control"
+                        value={form.password}
+                        onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={() => setShowPassword((current) => !current)}
+                        aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}
+                        aria-pressed={showPassword}
+                      >
+                        {showPassword ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M13.359 11.238 15 13.5l-.707.707-2.013-2.013A8.94 8.94 0 0 1 8 13C3 13 0 8 0 8a15.73 15.73 0 0 1 3.08-3.898L1.146 2.168l.708-.707 12 12-.707.707-1.788-1.788ZM11.297 10.176l-1.473-1.473a2 2 0 0 1-2.523-2.523L5.35 4.228A14.52 14.52 0 0 0 1.173 8 13.13 13.13 0 0 0 8 11.5a7.69 7.69 0 0 0 3.297-.824ZM10.477 5.82l1.57 1.57c.238.2.465.413.68.638a15.73 15.73 0 0 0-3.08-3.898A8.94 8.94 0 0 0 8 3c-.732 0-1.43.09-2.09.262l1.216 1.216A2 2 0 0 1 10.477 5.82Z" />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M16 8s-3-5-8-5-8 5-8 5 3 5 8 5 8-5 8-5ZM1.173 8A13.13 13.13 0 0 1 8 4.5 13.13 13.13 0 0 1 14.827 8 13.13 13.13 0 0 1 8 11.5 13.13 13.13 0 0 1 1.173 8Z" />
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm0 1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                   </div>
                   <button className="btn btn-primary w-100" disabled={busy}>
                     {busy ? "Ingresando..." : "Entrar"}
