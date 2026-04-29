@@ -80,7 +80,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Contrasena</label>
+                    <label className="form-label">Contraseña</label>
                     <input
                       type="password"
                       className="form-control"

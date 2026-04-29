@@ -41,23 +41,23 @@ function getValidationError(form: ReturnType<typeof buildInitialState>, initialU
 
   if (!initialUser) {
     if (form.password.length < 8) {
-      return "La contrasena debe tener al menos 8 caracteres.";
+      return "La contraseña debe tener al menos 8 caracteres.";
     }
 
     if (!/[A-Z]/.test(form.password)) {
-      return "La contrasena debe contener al menos una mayuscula.";
+      return "La contraseña debe contener al menos una mayuscula.";
     }
 
     if (!/[a-z]/.test(form.password)) {
-      return "La contrasena debe contener al menos una minuscula.";
+      return "La contraseña debe contener al menos una minuscula.";
     }
 
     if (!/[0-9]/.test(form.password)) {
-      return "La contrasena debe contener al menos un numero.";
+      return "La contraseña debe contener al menos un numero.";
     }
 
     if (!/[^A-Za-z0-9]/.test(form.password)) {
-      return "La contrasena debe contener al menos un caracter especial.";
+      return "La contraseña debe contener al menos un caracter especial.";
     }
   }
 
@@ -167,7 +167,7 @@ export function UserForm({ submitLabel, onSubmit, initialUser, onInteraction }: 
           </div>
           {!initialUser ? (
             <div className="col-md-6">
-              <label className="form-label">Contrasena</label>
+              <label className="form-label">Contraseña</label>
               <input
                 type="password"
                 className="form-control"
