@@ -10,8 +10,8 @@ export default function LoginPage() {
   const router = useRouter();
   const { login, loading, user } = useAuth();
   const [form, setForm] = useState({
-    email: "admin@taskflow.com",
-    password: "Admin123!",
+    email: "",
+    password: "",
   });
   const [nextPath, setNextPath] = useState("/dashboard");
   const [busy, setBusy] = useState(false);
@@ -64,7 +64,7 @@ export default function LoginPage() {
                   </span>
                   <h1 className="h3 mb-2">Iniciar sesion</h1>
                   <p className="text-secondary mb-0">
-                    Usa las credenciales del seeder o entra con tu cuenta registrada.
+                    Ingresa con tu cuenta para acceder a la plataforma.
                   </p>
                 </div>
                 {error ? <div className="alert alert-danger">{error}</div> : null}
@@ -93,11 +93,6 @@ export default function LoginPage() {
                     {busy ? "Ingresando..." : "Entrar"}
                   </button>
                 </form>
-                <div className="mt-4 p-3 rounded bg-light border">
-                  <div className="small text-secondary">Cuenta administradora de ejemplo</div>
-                  <div className="fw-semibold">admin@taskflow.com</div>
-                  <div className="fw-semibold">Admin123!</div>
-                </div>
               </div>
             </div>
           </div>
