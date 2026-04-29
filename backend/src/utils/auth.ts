@@ -22,10 +22,12 @@ export function verifyAuthToken(token: string) {
 }
 
 export function getCookieOptions() {
+  const isProduction = env.APP_ENV === "production";
+
   return {
     httpOnly: true,
-    sameSite: "lax" as const,
-    secure: env.APP_ENV === "production",
+    sameSite: isProduction ? ("none" as const) : ("lax" as const),
+    secure: isProduction,
     path: "/",
   };
 }
