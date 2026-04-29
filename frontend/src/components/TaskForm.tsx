@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { taskPriorities, taskStatuses } from "@/lib/constants";
+import { priorityLabels, roleLabels, statusLabels, taskPriorities, taskStatuses } from "@/lib/constants";
 import { formatDateInput } from "@/lib/format";
 import type { BasicUser, Project, Role, Task, TaskPayload, TaskPriority, TaskStatus } from "@/types";
 
@@ -177,7 +177,7 @@ export function TaskForm({
               >
                 {taskPriorities.map((priority) => (
                   <option key={priority} value={priority}>
-                    {priority}
+                    {priorityLabels[priority]}
                   </option>
                 ))}
               </select>
@@ -224,7 +224,7 @@ export function TaskForm({
                 <option value="">Selecciona un usuario</option>
                 {users.map((user) => (
                   <option key={user.id} value={user.id}>
-                    {user.name} ({user.role})
+                    {user.name} ({roleLabels[user.role]})
                   </option>
                 ))}
               </select>
@@ -240,7 +240,7 @@ export function TaskForm({
               >
                 {taskStatuses.map((status) => (
                   <option key={status} value={status}>
-                    {status}
+                    {statusLabels[status]}
                   </option>
                 ))}
               </select>
